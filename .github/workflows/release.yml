@@ -49,9 +49,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Apply versioning
-        run: pnpm version
-
       - name: Build
         run: pnpm build
 
