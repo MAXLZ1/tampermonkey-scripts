@@ -1,0 +1,36 @@
+{
+  "name": "tampermonkey-scripts",
+  "description": "userscripts for tampermonkey",
+  "private": true,
+  "scripts": {
+    "build": "pnpm -r build",
+    "type-check": "pnpm -r type-check",
+    "lint": "oxlint",
+    "format": "prettier --write . --ignore-unknown",
+    "format:check": "prettier --check . --ignore-unknown",
+    "prepare": "husky"
+  },
+  "keywords": [],
+  "author": "MAXLZ",
+  "license": "MIT",
+  "packageManager": "pnpm@10.17.1",
+  "lint-staged": {
+    "**/*.{ts,tsx,js}": [
+      "prettier --write --ignore-unknown",
+      "oxlint"
+    ],
+    "**/*": "prettier --write --ignore-unknown"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.3",
+    "oxlint": "^1.19.0",
+    "prettier": "3.6.2",
+    "terser": "^5.44.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.7",
+    "vite-plugin-monkey": "^7.1.4"
+  }
+}

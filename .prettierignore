@@ -1,0 +1,13 @@
+node_modules
+.vscode
+.DS_Store
+
+.github
+
+pnpm-lock.yaml
+
+packages/*/dist/**
+
+.release-please-manifest.json
+
+CHANGELOG.md

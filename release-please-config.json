@@ -1,0 +1,9 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "packages": {
+    "packages/xhs-pc-live-style": {
+      "path": "packages/xhs-pc-live-style",
+      "release-type": "node"
+    }
+  }
+}
