@@ -1,5 +1,6 @@
 export interface Comment {
   id: number;
+  idstr: string;
   mid: string;
   text: string;
   text_raw: string;

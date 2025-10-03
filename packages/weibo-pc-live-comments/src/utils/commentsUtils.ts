@@ -1,22 +1,13 @@
 import { blockedWordsStore } from "../stores";
 import type { Comment } from "../types/comment";
 
-let newestId = -1;
-
 export function extractDisplayComments(comments: Array<Comment>) {
-  let completed = false;
   const res: Array<Comment> = [];
   for (let i = 0; i < comments.length; i++) {
-    const comment = comments[i];
-
-    if (completed) break;
-
-    if (!(completed = comment.id === newestId) && !skipComment(comment)) {
-      res.unshift(comment);
+    if (!skipComment(comments[i])) {
+      res.unshift(comments[i]);
     }
   }
-
-  res.length > 0 && (newestId = res[res.length - 1].id);
 
   return res;
 }
