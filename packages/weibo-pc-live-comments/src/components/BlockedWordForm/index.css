@@ -1,0 +1,9 @@
+.blocked-word-form {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.blocked-word-form .blocked-word-input {
+  flex: 1;
+}

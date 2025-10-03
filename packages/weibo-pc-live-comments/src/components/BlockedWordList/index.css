@@ -1,0 +1,16 @@
+.blocked-word-list {
+  margin-top: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.blocked-word-list .clear-blocked-words {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
