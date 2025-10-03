@@ -12,7 +12,7 @@ export default defineConfig({
       entry: "src/main.tsx",
       userscript: {
         name: "微博PC直播弹幕助手",
-        description: "微博PC直播弹幕助手",
+        description: "在微博PC端生成弹幕。",
         author: "MAXLZ",
         icon: "https://weibo.com/favicon.ico",
         namespace: "npm/weibo-pc-live-comments",
