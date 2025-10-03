@@ -16,7 +16,7 @@ export default function BlockedWordForm() {
     if (!blockedWord.trim()) return;
 
     addBlockedWord(blockedWord);
-    setBlockedWord(""); // 添加成功后清空输入框
+    setBlockedWord("");
   }
 
   return (

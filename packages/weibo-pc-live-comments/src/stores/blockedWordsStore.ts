@@ -1,4 +1,4 @@
-import { createLocalStorageStore } from "../utils/createLocalStorageStore";
+import { createLocalStorageStore } from "./createLocalStorageStore";
 
 export const blockedWordsStore = createLocalStorageStore<string[]>(
   "blockedWords",

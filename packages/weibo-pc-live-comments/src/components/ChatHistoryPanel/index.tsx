@@ -1,11 +1,11 @@
 import "./index.css";
-import { useComments } from "../CommentsContext";
+import { useComments } from "../../hooks";
 import { useEffect, useRef, useState, useCallback } from "react";
 import WButton from "../WButton";
 import ArrowDownSvg from "../../assets/arrow_downward.svg?react";
 
 export default function ChatHistoryPanel() {
-  const { comments } = useComments();
+  const comments = useComments();
   const video = document.querySelector(".PlayInfo_boxout_3UBS0");
   const height = video ? `${video.getBoundingClientRect().height}px` : "50vh";
   const listRef = useRef<HTMLDivElement>(null);

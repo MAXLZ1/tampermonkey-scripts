@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import ChatHistoryPanel from "./components/ChatHistoryPanel";
-import { CommentsProvider } from "./components/CommentsContext";
-import { getComments, getMid } from "./apis";
-import { extractDisplayComments } from "./utils/commentsUtils";
+import { getComments, getRoomInfo } from "./apis";
+import { extractDisplayComments } from "./utils";
 import BlockedWordForm from "./components/BlockedWordForm";
 import BlcokedWordList from "./components/BlockedWordList";
+import { addComments } from "./stores";
 
 function FrameSideApp() {
   return (
@@ -19,26 +19,30 @@ function FrameSideApp() {
 }
 
 function VideoBoxApp() {
-  return <div>test</div>;
+  return <div></div>;
 }
 
 window.addEventListener("load", async () => {
-  const frameSide = document.querySelector(".Frame_side2_xRwuq");
-  const videoBox = document.body.querySelector("#wbpv_video_459");
+  const frameSide = document.body.querySelector("[class^='Frame_side2']");
+  const videoBox = document.body.querySelector("[id^='wbpv_video_']");
 
   const matches = window.location.href.match(/show\/(.*)$/);
   if (!matches?.[1]) return;
 
-  const mid = await getMid(matches[1]);
-  if (!mid) return;
+  const roomInfo = await getRoomInfo(matches[1]);
+
+  if (!roomInfo) return;
+
+  const {
+    mid,
+    user: { uid },
+  } = roomInfo;
 
   // 挂载 FrameSide
   if (frameSide) {
     ReactDOM.createRoot(frameSide).render(
       <React.StrictMode>
-        <CommentsProvider>
-          <FrameSideApp />
-        </CommentsProvider>
+        <FrameSideApp />
       </React.StrictMode>,
     );
   }
@@ -49,23 +53,17 @@ window.addEventListener("load", async () => {
     videoBox.append(container);
     ReactDOM.createRoot(container).render(
       <React.StrictMode>
-        <CommentsProvider>
-          <VideoBoxApp />
-        </CommentsProvider>
+        <VideoBoxApp />
       </React.StrictMode>,
     );
   }
 
-  // 轮询更新 comments
   const updateComments = async () => {
-    const latest = await getComments(mid, 3000);
+    const latest = await getComments(mid, uid);
     const displayComments = extractDisplayComments(latest);
 
-    // 直接用 Context 更新
-    const evt = new CustomEvent("update-comments", { detail: displayComments });
-    window.dispatchEvent(evt);
+    addComments(displayComments);
   };
 
-  const id = setInterval(updateComments, 3000);
-  // setTimeout(() => clearInterval(id), 15000);
+  setInterval(updateComments, Number(import.meta.env.VITE_REQUEST_GAP));
 });
