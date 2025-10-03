@@ -4,6 +4,10 @@
     "packages/xhs-pc-live-style": {
       "path": "packages/xhs-pc-live-style",
       "release-type": "node"
+    },
+    "packages/weibo-pc-live-comments": {
+      "path": "packages/weibo-pc-live-comments",
+      "release-type": "node"
     }
   }
 }
