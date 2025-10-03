@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/MAXLZ1/tampermonkey-scripts/compare/weibo-pc-live-comments-v1.0.1...weibo-pc-live-comments-v1.0.2) (2025-10-03)
+
+
+### Bug Fixes
+
+* remove duplicate comments ([f114697](https://github.com/MAXLZ1/tampermonkey-scripts/commit/f114697785e84592f16c123bdcc10f4055a1b8c4))
+
 ## [1.0.1](https://github.com/MAXLZ1/tampermonkey-scripts/compare/weibo-pc-live-comments-v1.0.0...weibo-pc-live-comments-v1.0.1) (2025-10-03)
 
 
