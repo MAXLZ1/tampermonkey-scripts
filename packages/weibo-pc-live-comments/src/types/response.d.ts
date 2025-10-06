@@ -14,7 +14,7 @@ export interface RoomInfo {
   error_code: number;
   data: {
     liveId: string;
-    status: 3;
+    status: number;
     cover: string;
     startTime: number;
     endTime: number;

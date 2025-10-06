@@ -7,6 +7,9 @@ import { extractDisplayComments } from "./utils";
 import BlockedWordForm from "./components/BlockedWordForm";
 import BlcokedWordList from "./components/BlockedWordList";
 import { addComments } from "./stores";
+import VideoComments from "./components/VideoComments";
+import CommentSwitch from "./components/CommentsSwitch";
+import { useCommentSwitch } from "./hooks";
 
 function FrameSideApp() {
   return (
@@ -19,19 +22,30 @@ function FrameSideApp() {
 }
 
 function VideoBoxApp() {
-  return <div></div>;
+  const [checked] = useCommentSwitch();
+  if (!checked) return;
+
+  return <VideoComments />;
+}
+
+function VideoControlApp() {
+  const [checked, setChecked] = useCommentSwitch();
+  const handleClick = (checked: boolean) => setChecked(checked);
+
+  return <CommentSwitch checked={checked} onClick={handleClick} />;
 }
 
 window.addEventListener("load", async () => {
   const frameSide = document.body.querySelector("[class^='Frame_side2']");
   const videoBox = document.body.querySelector("[id^='wbpv_video_']");
+  const videoControlBar = document.body.querySelector(".wbpv-control-bar");
 
   const matches = window.location.href.match(/show\/(.*)$/);
   if (!matches?.[1]) return;
 
   const roomInfo = await getRoomInfo(matches[1]);
 
-  if (!roomInfo) return;
+  if (!roomInfo || roomInfo.status !== 1) return;
 
   const {
     mid,
@@ -58,12 +72,48 @@ window.addEventListener("load", async () => {
     );
   }
 
-  const updateComments = async () => {
-    const latest = await getComments(mid, uid);
+  // 弹幕开关
+  if (videoControlBar) {
+    const container = document.createElement("button");
+    container.className = "danmu-switch";
+    videoControlBar.insertBefore(
+      container,
+      videoControlBar.querySelector(".wbpv-fullscreen-control"),
+    );
+    ReactDOM.createRoot(container).render(
+      <React.StrictMode>
+        <VideoControlApp />
+      </React.StrictMode>,
+    );
+  }
+
+  const updateComments = async (isFirst?: boolean) => {
+    const latest = await getComments(mid, uid, isFirst);
     const displayComments = extractDisplayComments(latest);
 
     addComments(displayComments);
   };
 
-  setInterval(updateComments, Number(import.meta.env.VITE_REQUEST_GAP));
+  function request() {
+    setTimeout(() => {
+      updateComments(true);
+    }, 0);
+    return setInterval(
+      updateComments,
+      Number(import.meta.env.VITE_REQUEST_GAP),
+    );
+  }
+
+  let intervalId = request();
+
+  const video = videoBox?.querySelector("video");
+
+  if (video) {
+    video.addEventListener("play", () => {
+      intervalId = request();
+    });
+    video.addEventListener("pause", () => {
+      clearInterval(intervalId);
+    });
+  }
 });

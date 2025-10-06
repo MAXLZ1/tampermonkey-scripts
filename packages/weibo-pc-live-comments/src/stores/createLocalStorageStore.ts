@@ -7,7 +7,16 @@ export function createLocalStorageStore<T>(key: string, initialValue: T) {
 
   const listeners = new Set<() => void>();
   // 缓存 snapshot 避免 infinite loop
-  let lastSnapshot: T = initialValue;
+  let lastSnapshot: T = read();
+
+  function read(): T {
+    try {
+      const item = localStorage.getItem(key);
+      return item ? (JSON.parse(item) as T) : initialValue;
+    } catch {
+      return initialValue;
+    }
+  }
 
   function subscribe(listener: () => void) {
     listeners.add(listener);
@@ -22,24 +31,11 @@ export function createLocalStorageStore<T>(key: string, initialValue: T) {
   }
 
   function getSnapshot(): T {
-    try {
-      const item = localStorage.getItem(key);
-      const parsed = item ? (JSON.parse(item) as T) : initialValue;
-
-      // 对象/数组类型做浅比较，返回缓存引用
-      if (typeof parsed === "object" && parsed !== null) {
-        if (JSON.stringify(parsed) === JSON.stringify(lastSnapshot)) {
-          return lastSnapshot;
-        }
-      } else if (parsed === lastSnapshot) {
-        return lastSnapshot;
-      }
-
-      lastSnapshot = parsed;
-      return parsed;
-    } catch {
-      return lastSnapshot;
+    const next = read();
+    if (JSON.stringify(next) !== JSON.stringify(lastSnapshot)) {
+      lastSnapshot = next;
     }
+    return lastSnapshot;
   }
 
   function setValue(value: T | ((prev: T) => T)) {

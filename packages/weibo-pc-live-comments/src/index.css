@@ -1,0 +1,19 @@
+.danmu-switch {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  cursor: pointer;
+  margin-right: 24px;
+  padding-top: 2px;
+}
+
+.wbp-video.wbpv-fullscreen .danmu-switch {
+  height: 70px;
+  padding-bottom: 2px;
+  padding-top: 0;
+  margin-right: 40px;
+}
+
+.danmu-switch:hover {
+  color: #ff8200;
+}

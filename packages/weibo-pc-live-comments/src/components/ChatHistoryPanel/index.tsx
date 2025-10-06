@@ -51,7 +51,7 @@ export default function ChatHistoryPanel() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {comment.user.screen_name}:
+                {comment.user.screen_name}:&nbsp;
               </a>
               <span dangerouslySetInnerHTML={{ __html: comment.text }}></span>
             </div>
@@ -63,7 +63,7 @@ export default function ChatHistoryPanel() {
         onClick={scrollToBottom}
       >
         <ArrowDownSvg className="arrow-down" />
-        划到底部
+        滑到底部
       </WButton>
     </div>
   );

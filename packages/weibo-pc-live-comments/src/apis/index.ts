@@ -12,8 +12,10 @@ export async function getRoomInfo(liveId: string) {
   return null;
 }
 
-export async function getComments(mid: string, uid: number) {
-  await sleep(Math.random() * Number(import.meta.env.VITE_MAX_RANDOM_GAP));
+export async function getComments(mid: string, uid: number, isFirst?: boolean) {
+  if (!isFirst) {
+    await sleep(Math.random() * Number(import.meta.env.VITE_MAX_RANDOM_GAP));
+  }
 
   const res = await fetch(
     `https://weibo.com/ajax/statuses/buildComments?flow=1&is_reload=1&id=${mid}&is_show_bulletin=2&is_mix=0&max_id=0&count=20&uid=${uid}&fetch_level=0&locale=zh-CN&expand_text=0`,
