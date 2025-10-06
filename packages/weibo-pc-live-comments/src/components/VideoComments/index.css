@@ -1,0 +1,49 @@
+.video-comments-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.video-comments-box > .video-comment {
+  position: absolute;
+  white-space: nowrap;
+  font-size: 16px;
+  --stroke-color: rgba(0, 0, 0, 0.8);
+  text-shadow:
+    1px 0 var(--stroke-color),
+    0 1px var(--stroke-color),
+    -1px 0 var(--stroke-color),
+    0 -1px var(--stroke-color);
+  left: 100%;
+  opacity: 0.6;
+}
+
+.video-comments-box > .video-comment a {
+  color: #ffffff;
+}
+
+.video-comments-box > .video-comment img {
+  height: 16px;
+  width: 16x;
+  max-width: 16px;
+  max-height: 16px;
+  vertical-align: -4px;
+}
+
+.video-comments-box > span img + img {
+  margin-left: 2px;
+}
+
+@keyframes danmaku-move {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(var(--end-x));
+  }
+}

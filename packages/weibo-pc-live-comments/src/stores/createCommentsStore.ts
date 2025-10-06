@@ -1,6 +1,6 @@
 import type { Comment } from "../types/comment";
 
-type Subscriber = () => void;
+type Subscriber = (added: Comment[]) => void;
 
 export function createCommentsStore() {
   let comments: Comment[] = [];
@@ -9,11 +9,19 @@ export function createCommentsStore() {
   const getComments = () => comments;
 
   const setComments = (newComments: Comment[]) => {
+    const prevIds = new Set(comments.map((c) => c.id));
     // 去重
-    comments = Array.from(
+    const merged = Array.from(
       new Map([...comments, ...newComments].map((c) => [c.id, c])).values(),
     ).slice(-Number(import.meta.env.VITE_MAX_COMMENTS_NUMBER));
-    subscribers.forEach((sub) => sub());
+
+    // 计算新增
+    const added = merged.filter((c) => !prevIds.has(c.id));
+
+    if (added.length === 0) return;
+
+    comments = merged;
+    subscribers.forEach((sub) => sub(added));
   };
 
   const subscribe = (sub: Subscriber) => {
