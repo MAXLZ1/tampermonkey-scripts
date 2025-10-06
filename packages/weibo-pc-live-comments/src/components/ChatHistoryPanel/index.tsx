@@ -1,28 +1,50 @@
 import "./index.css";
-import { useComments } from "../../hooks";
+import { useComments, useIncrementalComments } from "../../hooks";
 import { useEffect, useRef, useState, useCallback } from "react";
 import WButton from "../WButton";
 import ArrowDownSvg from "../../assets/arrow_downward.svg?react";
 
 export default function ChatHistoryPanel() {
   const comments = useComments();
+  const incrementalComments = useIncrementalComments();
+  const [newCount, setNewCount] = useState(0);
   const video = document.querySelector(".PlayInfo_boxout_3UBS0");
   const height = video ? `${video.getBoundingClientRect().height}px` : "50vh";
   const listRef = useRef<HTMLDivElement>(null);
   const [atBottom, setAtBottom] = useState(true);
 
+  // 在底部时最后一次新增弹幕数量
+  const lastSeenCount = useRef(0);
+
   const handleScroll = useCallback(() => {
     if (!listRef.current) return;
     const { scrollTop, scrollHeight, clientHeight } = listRef.current;
+    const isBottom = scrollTop + clientHeight >= scrollHeight - 10;
+
     // 判断是否接近底部（10px 以内算到底部）
-    setAtBottom(scrollTop + clientHeight >= scrollHeight - 10);
+    setAtBottom(isBottom);
   }, []);
 
   useEffect(() => {
-    if (atBottom && listRef.current) {
-      listRef.current.scrollTop = listRef.current.scrollHeight;
+    if (incrementalComments.length === 0) return;
+    if (atBottom) {
+      if (listRef.current) {
+        listRef.current.scrollTop = listRef.current.scrollHeight;
+      }
+      lastSeenCount.current = incrementalComments.length;
+    } else {
+      const delta = incrementalComments.length - lastSeenCount.current;
+      if (delta >= 0) {
+        setNewCount((prev) =>
+          Math.min(
+            prev + delta,
+            Number(import.meta.env.VITE_MAX_COMMENTS_NUMBER),
+          ),
+        );
+        lastSeenCount.current = 0; // 更新已计算数
+      }
     }
-  }, [comments, atBottom]);
+  }, [incrementalComments, atBottom]);
 
   useEffect(() => {
     const el = listRef.current;
@@ -33,10 +55,7 @@ export default function ChatHistoryPanel() {
 
   const scrollToBottom = () => {
     if (listRef.current) {
-      listRef.current.scrollTo({
-        top: listRef.current.scrollHeight,
-        behavior: "smooth",
-      });
+      listRef.current.scrollTop = listRef.current.scrollHeight;
     }
   };
 
@@ -51,7 +70,7 @@ export default function ChatHistoryPanel() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {comment.user.screen_name}:&nbsp;
+                {comment.user.screen_name}:{" "}
               </a>
               <span dangerouslySetInnerHTML={{ __html: comment.text }}></span>
             </div>
@@ -59,11 +78,16 @@ export default function ChatHistoryPanel() {
         </div>
       </div>
       <WButton
-        className={`bottom-button ${atBottom ? "" : "visible"}`}
+        className={`bottom-button ${!atBottom && newCount > 0 ? "visible" : ""}`}
         onClick={scrollToBottom}
+        onTransitionEnd={(e) => {
+          if (e.propertyName === "opacity" && atBottom) {
+            setNewCount(0);
+          }
+        }}
       >
         <ArrowDownSvg className="arrow-down" />
-        滑到底部
+        {newCount}条新弹幕
       </WButton>
     </div>
   );
