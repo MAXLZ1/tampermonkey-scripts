@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.0](https://github.com/MAXLZ1/tampermonkey-scripts/compare/weibo-pc-live-comments-v1.0.2...weibo-pc-live-comments-v1.1.0) (2025-10-06)
+
+
+### Features
+
+* **weibo-pc-live-comments:** add comments on video ([bfc3b25](https://github.com/MAXLZ1/tampermonkey-scripts/commit/bfc3b252760ad5d796d8078c30550933213f57e4))
+* **weibo-pc-live-comments:** add new comments count prompt ([6818f36](https://github.com/MAXLZ1/tampermonkey-scripts/commit/6818f368f8282f80b0aa45e89b179eeca6ed4148))
+
 ## [1.0.2](https://github.com/MAXLZ1/tampermonkey-scripts/compare/weibo-pc-live-comments-v1.0.1...weibo-pc-live-comments-v1.0.2) (2025-10-03)
 
 
