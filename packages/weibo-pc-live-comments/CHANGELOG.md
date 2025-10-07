@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0](https://github.com/MAXLZ1/tampermonkey-scripts/compare/weibo-pc-live-comments-v1.1.0...weibo-pc-live-comments-v1.2.0) (2025-10-07)
+
+
+### Features
+
+* adjust weibo live page style ([3978dec](https://github.com/MAXLZ1/tampermonkey-scripts/commit/3978dece1e23e74c46310bef605d8eb199c5049a))
+* prettify comments ([5b902c9](https://github.com/MAXLZ1/tampermonkey-scripts/commit/5b902c9d1266678a404cb64381d19ea862cc271f))
+
 ## [1.1.0](https://github.com/MAXLZ1/tampermonkey-scripts/compare/weibo-pc-live-comments-v1.0.2...weibo-pc-live-comments-v1.1.0) (2025-10-06)
 
 
