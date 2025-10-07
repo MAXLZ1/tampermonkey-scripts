@@ -29,7 +29,9 @@ export default function BlockedWordForm() {
         value={blockedWord}
         onChange={handleBlockedWordChange}
       />
-      <WButton type="submit">添加屏蔽词</WButton>
+      <WButton type="submit" className="woo-button-s">
+        添加屏蔽词
+      </WButton>
     </form>
   );
 }

@@ -1,0 +1,19 @@
+.chat-control-panel-box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 10px;
+  color: #929292;
+  gap: 10px;
+  position: relative;
+}
+
+.chat-control-panel-box .control-icon {
+  height: 26px;
+  width: 26px;
+  cursor: pointer;
+}
+
+.chat-control-panel-box .control-icon:hover {
+  color: var(--w-brand);
+}

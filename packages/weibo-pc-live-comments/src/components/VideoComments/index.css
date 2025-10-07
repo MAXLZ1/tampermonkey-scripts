@@ -21,6 +21,7 @@
     0 -1px var(--stroke-color);
   left: 100%;
   opacity: 0.6;
+  will-change: transform;
 }
 
 .video-comments-box > .video-comment a {
@@ -41,9 +42,9 @@
 
 @keyframes danmaku-move {
   from {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translateX(var(--end-x));
+    transform: translate3d(var(--end-x), 0, 0);
   }
 }

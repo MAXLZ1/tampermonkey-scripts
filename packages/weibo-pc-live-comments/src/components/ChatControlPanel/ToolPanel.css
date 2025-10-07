@@ -1,0 +1,43 @@
+.tool-panel-main {
+  box-sizing: border-box;
+  position: absolute;
+  bottom: calc(100% - 10px);
+  left: -1px;
+  right: -1px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 99;
+}
+
+.tool-panel-main.open {
+  bottom: 100%;
+  opacity: 1;
+  pointer-events: initial;
+}
+
+.tool-panel-main .tool-panel-title {
+  background-color: #eae6e6;
+  font-size: 14px;
+  color: #333;
+  padding: 10px;
+  border-radius: 6px 6px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tool-panel-main .tool-panel-title .close-icon {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.tool-panel-main .tool-panel-title .close-icon:hover {
+  color: #979797;
+}
+
+.tool-panel-main .tool-panel-content {
+  padding: 10px;
+}

@@ -1,7 +1,6 @@
 import "./index.css";
 import { useBlockedWords } from "../../hooks";
 import BlcokedWordItem from "./BlockedWordItem";
-import WButton from "../WButton";
 
 export default function BlcokedWordList() {
   const [blockedWords, { removeBlockedWord, clearBlockedWords }] =
@@ -15,20 +14,23 @@ export default function BlcokedWordList() {
     clearBlockedWords();
   };
 
-  return (
-    <div className="blocked-word-list">
-      {blockedWords.map((word) => (
-        <BlcokedWordItem
-          key={word}
-          word={word}
-          onClear={handleClear}
-        ></BlcokedWordItem>
-      ))}
-      {blockedWords.length > 0 && (
-        <div className="clear-blocked-words">
-          <WButton onClick={handleClearAll}>清空屏蔽词</WButton>
-        </div>
-      )}
-    </div>
+  return blockedWords.length > 0 ? (
+    <>
+      <ul className="blocked-word-list">
+        {blockedWords.map((word, index) => (
+          <BlcokedWordItem
+            key={word}
+            word={word}
+            index={index + 1}
+            onClear={handleClear}
+          ></BlcokedWordItem>
+        ))}
+      </ul>
+      <div className="clear-blocked-words">
+        <a onClick={handleClearAll}>清空屏蔽词</a>
+      </div>
+    </>
+  ) : (
+    <div className="no-blocked-words">当前暂未设置屏蔽词</div>
   );
 }

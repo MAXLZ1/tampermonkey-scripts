@@ -1,0 +1,50 @@
+div[class*="Frame_content"] {
+  width: 100%;
+  padding: 0 80px;
+  box-sizing: border-box;
+  gap: 20px;
+}
+
+div[class^="Frame_side2"] {
+  width: 350px;
+}
+
+div[class^="Frame_main"] {
+  width: calc(100% - 350px - 20px);
+}
+
+div[class*="Frame_wrap"] {
+  height: calc(100% - var(--weibo-top-nav-height));
+  min-height: calc(100% - var(--weibo-top-nav-height));
+}
+
+div[class^="PlayInfo_boxin"] {
+  overflow: hidden;
+  padding-bottom: calc(
+    100vh - 10px - var(--weibo-top-nav-height) - 115px - 50px - 30px
+  );
+}
+
+.wbpv-poster {
+  display: block;
+  filter: blur(35px);
+  z-index: 0;
+}
+
+div[class^="Detail_wrap"] ~ * {
+  display: none;
+}
+
+@media screen and (max-width: 1319px) {
+  div[class*="Frame_content"] {
+    padding: 0 50px;
+  }
+
+  div[class^="Frame_side2"] {
+    width: 300px;
+  }
+
+  div[class^="Frame_main"] {
+    width: calc(100% - 300px - 20px);
+  }
+}

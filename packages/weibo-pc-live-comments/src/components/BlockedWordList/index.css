@@ -4,13 +4,30 @@
   overflow-y: auto;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 6px;
-  padding: 10px;
   box-sizing: border-box;
+  padding: 0;
+  font-size: 12px;
 }
 
-.blocked-word-list .clear-blocked-words {
+.clear-blocked-words {
   width: 100%;
-  display: flex;
-  justify-content: center;
+  text-align: center;
   margin-top: 10px;
+  font-size: 14px;
+}
+
+.clear-blocked-words a {
+  cursor: pointer;
+}
+
+.clear-blocked-words a:hover {
+  color: var(--w-brand);
+  text-decoration: underline;
+}
+
+.no-blocked-words {
+  text-align: center;
+  color: #929292;
+  padding: 20px 0;
+  font-size: 14px;
 }
