@@ -10,6 +10,7 @@ export default defineConfig({
         name: "小红书PC端直播美化脚本",
         description: "自动点击播放，去除底部按钮，调整视频显示比例",
         author: "MAXLZ",
+        license: "MIT",
         icon: "https://www.xiaohongshu.com/favicon.ico",
         namespace: "npm/xhs-pc-live-style",
         match: ["https://www.xiaohongshu.com/livestream/dynpath*"],
