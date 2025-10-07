@@ -1,16 +1,21 @@
 .chart-history-panel-box {
   position: relative;
-  overflow: hidden;
   box-shadow: 0 0 5px 4px rgb(40 40 40 / 5%);
   border-radius: 6px;
-  height: calc(100vh - 10px - var(--weibo-top-nav-height) - 115px - 30px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  height: calc(100vh - 10px - var(--weibo-top-nav-height) - 30px);
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-history-panel-wrapper {
+  position: relative;
+  overflow: hidden;
+  flex: 1;
 }
 
 .chart-history-panel {
   width: 100%;
-  min-height: 450px;
-  height: calc(100% - 35px);
+  height: 100%;
   padding: 10px;
   overflow-y: auto;
   box-sizing: border-box;
@@ -28,7 +33,7 @@
 
 .chart-history-panel-box .bottom-button {
   position: absolute;
-  bottom: 45px;
+  bottom: 15px;
   left: 0;
   right: 0;
   margin: auto;
@@ -53,4 +58,23 @@
 .chart-history-panel-box .bottom-button.visible {
   transform: translateY(0);
   opacity: 0.9;
+}
+
+.chart-history-panel-box .sending-form {
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.chart-history-panel-box .sending-form [class^="Composer_iconbox2_"] {
+  margin: 0;
+}
+
+.chart-history-panel-box .sending-form .woo-pop-main {
+  transform: translate3d(calc(-100%), calc(-100%), 0);
+}
+
+.chart-history-panel-box .sending-form .wbpro-form input,
+.wbpro-form textarea {
+  /* height: 48px !important;
+  max-height: 48px !important; */
 }
