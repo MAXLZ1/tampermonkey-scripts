@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import WButton from "../WButton";
 import ArrowDownSvg from "../../assets/arrow_downward.svg?react";
 import ChatControlPanel from "../ChatControlPanel";
+import CommentItem from "./CommentItem";
 
 export default function ChatHistoryPanel() {
   const comments = useComments();
@@ -61,18 +62,9 @@ export default function ChatHistoryPanel() {
   return (
     <div className="chart-history-panel-box">
       <div className="chart-history-panel" ref={listRef}>
-        <div className="wbpro-list">
+        <div className="comments-list">
           {comments.map((comment) => (
-            <div className="text" key={comment.id}>
-              <a
-                href={`https://weibo.com/u/${comment.user.id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {comment.user.screen_name}:{" "}
-              </a>
-              <span dangerouslySetInnerHTML={{ __html: comment.text }}></span>
-            </div>
+            <CommentItem comment={comment} key={comment.id} />
           ))}
         </div>
       </div>
