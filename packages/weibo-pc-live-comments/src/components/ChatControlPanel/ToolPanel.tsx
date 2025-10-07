@@ -24,7 +24,7 @@ export default function ToolPanel({
   };
 
   return (
-    <div className="tool-panel-box">
+    <>
       {children}
       <div className={`tool-panel-main ${open ? "open" : ""}`}>
         <div className="tool-panel-title">
@@ -33,6 +33,6 @@ export default function ToolPanel({
         </div>
         <div className="tool-panel-content">{content}</div>
       </div>
-    </div>
+    </>
   );
 }

@@ -6,11 +6,23 @@ import ArrowDownSvg from "../../assets/arrow_downward.svg?react";
 import ChatControlPanel from "../ChatControlPanel";
 import CommentItem from "./CommentItem";
 
+function moveSendingForm(container: HTMLElement) {
+  const sendingForm = document.querySelector<HTMLDivElement>(
+    '[class^="Tit_wrap"] + div > .woo-box-flex',
+  );
+
+  if (sendingForm) {
+    sendingForm.classList.add("sending-form");
+    container.appendChild(sendingForm);
+  }
+}
+
 export default function ChatHistoryPanel() {
   const comments = useComments();
   const incrementalComments = useIncrementalComments();
   const [newCount, setNewCount] = useState(0);
   const listRef = useRef<HTMLDivElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
   const [atBottom, setAtBottom] = useState(true);
 
   // 在底部时最后一次新增弹幕数量
@@ -53,6 +65,10 @@ export default function ChatHistoryPanel() {
     return () => el.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
+  useEffect(() => {
+    boxRef.current && moveSendingForm(boxRef.current);
+  }, []);
+
   const scrollToBottom = () => {
     if (listRef.current) {
       listRef.current.scrollTop = listRef.current.scrollHeight;
@@ -60,27 +76,29 @@ export default function ChatHistoryPanel() {
   };
 
   return (
-    <div className="chart-history-panel-box">
-      <div className="chart-history-panel" ref={listRef}>
-        <div className="comments-list">
-          {comments.map((comment) => (
-            <CommentItem comment={comment} key={comment.id} />
-          ))}
+    <div className="chart-history-panel-box" ref={boxRef}>
+      <div className="chart-history-panel-wrapper">
+        <div className="chart-history-panel" ref={listRef}>
+          <div className="comments-list">
+            {comments.map((comment) => (
+              <CommentItem comment={comment} key={comment.id} />
+            ))}
+          </div>
         </div>
+        <WButton
+          className={`bottom-button ${!atBottom && newCount > 0 ? "visible" : ""}`}
+          onClick={scrollToBottom}
+          onTransitionEnd={(e) => {
+            if (e.propertyName === "opacity" && atBottom) {
+              setNewCount(0);
+            }
+          }}
+        >
+          <ArrowDownSvg className="arrow-down" />
+          {newCount}条新弹幕
+        </WButton>
       </div>
       <ChatControlPanel className="chart-control-panel" />
-      <WButton
-        className={`bottom-button ${!atBottom && newCount > 0 ? "visible" : ""}`}
-        onClick={scrollToBottom}
-        onTransitionEnd={(e) => {
-          if (e.propertyName === "opacity" && atBottom) {
-            setNewCount(0);
-          }
-        }}
-      >
-        <ArrowDownSvg className="arrow-down" />
-        {newCount}条新弹幕
-      </WButton>
     </div>
   );
 }
