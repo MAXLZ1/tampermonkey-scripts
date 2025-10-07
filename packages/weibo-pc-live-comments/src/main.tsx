@@ -3,29 +3,31 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import ChatHistoryPanel from "./components/ChatHistoryPanel";
 import { getComments, getRoomInfo } from "./apis";
-import { extractDisplayComments } from "./utils";
-import BlockedWordForm from "./components/BlockedWordForm";
-import BlcokedWordList from "./components/BlockedWordList";
+import { extractDisplayComments, injectCSS } from "./utils";
 import { addComments } from "./stores";
 import VideoComments from "./components/VideoComments";
 import CommentSwitch from "./components/CommentsSwitch";
 import { useCommentSwitch } from "./hooks";
+import style from "./style/prettify.css?inline";
+import VideoBackground from "./components/VideoBackground";
 
 function FrameSideApp() {
   return (
     <>
       <ChatHistoryPanel />
-      <BlockedWordForm />
-      <BlcokedWordList />
     </>
   );
 }
 
 function VideoBoxApp() {
   const [checked] = useCommentSwitch();
-  if (!checked) return;
 
-  return <VideoComments />;
+  return (
+    <>
+      {checked && <VideoComments />}
+      <VideoBackground />
+    </>
+  );
 }
 
 function VideoControlApp() {
@@ -46,6 +48,8 @@ window.addEventListener("load", async () => {
   const roomInfo = await getRoomInfo(matches[1]);
 
   if (!roomInfo || roomInfo.status !== 1) return;
+
+  injectCSS(style);
 
   const {
     mid,

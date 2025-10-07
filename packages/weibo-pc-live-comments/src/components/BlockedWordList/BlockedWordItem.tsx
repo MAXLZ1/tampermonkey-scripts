@@ -1,25 +1,28 @@
 import "./BlockedWordItem.css";
-import ClearSvg from "../../assets/close.svg?react";
+import TrashSVG from "../../assets/trash.svg?react";
 
 type BlcokedWordItemProps = {
   word: string;
   onClear?: (word: string) => void;
+  index?: number;
 };
 
 export default function BlcokedWordItem({
   word,
   onClear,
+  index,
 }: BlcokedWordItemProps) {
   const handleClick = () => {
     onClear && onClear(word);
   };
 
   return (
-    <div className="blocked-word-item">
-      <span>{word}</span>
-      <div className="clear" onClick={handleClick}>
-        <ClearSvg />
+    <li className="blocked-word-item">
+      <div className="blocked-word-item-left">
+        <span>{index}.</span>
+        <span className="blocked-word-text">{word}</span>
       </div>
-    </div>
+      <TrashSVG className="clear" onClick={handleClick} />
+    </li>
   );
 }

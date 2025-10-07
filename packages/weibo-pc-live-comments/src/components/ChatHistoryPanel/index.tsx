@@ -3,13 +3,12 @@ import { useComments, useIncrementalComments } from "../../hooks";
 import { useEffect, useRef, useState, useCallback } from "react";
 import WButton from "../WButton";
 import ArrowDownSvg from "../../assets/arrow_downward.svg?react";
+import ChatControlPanel from "../ChatControlPanel";
 
 export default function ChatHistoryPanel() {
   const comments = useComments();
   const incrementalComments = useIncrementalComments();
   const [newCount, setNewCount] = useState(0);
-  const video = document.querySelector(".PlayInfo_boxout_3UBS0");
-  const height = video ? `${video.getBoundingClientRect().height}px` : "50vh";
   const listRef = useRef<HTMLDivElement>(null);
   const [atBottom, setAtBottom] = useState(true);
 
@@ -61,7 +60,7 @@ export default function ChatHistoryPanel() {
 
   return (
     <div className="chart-history-panel-box">
-      <div className="chart-history-panel" style={{ height }} ref={listRef}>
+      <div className="chart-history-panel" ref={listRef}>
         <div className="wbpro-list">
           {comments.map((comment) => (
             <div className="text" key={comment.id}>
@@ -77,6 +76,7 @@ export default function ChatHistoryPanel() {
           ))}
         </div>
       </div>
+      <ChatControlPanel className="chart-control-panel" />
       <WButton
         className={`bottom-button ${!atBottom && newCount > 0 ? "visible" : ""}`}
         onClick={scrollToBottom}

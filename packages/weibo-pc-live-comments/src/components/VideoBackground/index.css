@@ -1,0 +1,10 @@
+.video-background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+  filter: blur(35px);
+  background-size: cover;
+}
