@@ -16,6 +16,12 @@
   box-sizing: border-box;
 }
 
+.chart-history-panel .comments-list {
+  width: 100%;
+  line-height: 22px;
+  font-size: 13px;
+}
+
 .chart-history-panel-box .chart-control-panel {
   height: 35px;
 }

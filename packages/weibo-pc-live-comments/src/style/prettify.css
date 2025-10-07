@@ -6,11 +6,11 @@ div[class*="Frame_content"] {
 }
 
 div[class^="Frame_side2"] {
-  width: 350px;
+  width: 400px;
 }
 
 div[class^="Frame_main"] {
-  width: calc(100% - 350px - 20px);
+  width: calc(100% - 400px - 20px);
 }
 
 div[class*="Frame_wrap"] {
@@ -41,10 +41,10 @@ div[class^="Detail_wrap"] ~ * {
   }
 
   div[class^="Frame_side2"] {
-    width: 300px;
+    width: 350px;
   }
 
   div[class^="Frame_main"] {
-    width: calc(100% - 300px - 20px);
+    width: calc(100% - 350px - 20px);
   }
 }
