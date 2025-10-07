@@ -14,6 +14,7 @@ export default defineConfig({
         name: "微博PC直播弹幕助手",
         description: "在微博PC端生成弹幕。",
         author: "MAXLZ",
+        license: "MIT",
         icon: "https://weibo.com/favicon.ico",
         namespace: "npm/weibo-pc-live-comments",
         match: ["https://weibo.com/l/wblive/p/show/*"],
