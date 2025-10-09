@@ -3,13 +3,14 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import ChatHistoryPanel from "./components/ChatHistoryPanel";
 import { getComments, getRoomInfo } from "./apis";
-import { extractDisplayComments, injectCSS } from "./utils";
+import { extractDisplayComments, launchLiveRoom, injectCSS } from "./utils";
 import { addComments } from "./stores";
 import VideoComments from "./components/VideoComments";
 import CommentSwitch from "./components/CommentsSwitch";
 import { useCommentSwitch } from "./hooks";
 import style from "./style/prettify.css?inline";
 import VideoBackground from "./components/VideoBackground";
+import { MessageHolder } from "./components/WMessage/message";
 
 function FrameSideApp() {
   return (
@@ -37,7 +38,18 @@ function VideoControlApp() {
   return <CommentSwitch checked={checked} onClick={handleClick} />;
 }
 
+function mountMessageHolder() {
+  const div = document.createElement("div");
+  document.body.appendChild(div);
+  ReactDOM.createRoot(div).render(
+    <React.StrictMode>
+      <MessageHolder />
+    </React.StrictMode>,
+  );
+}
+
 window.addEventListener("load", async () => {
+  mountMessageHolder();
   const frameSide = document.body.querySelector("[class^='Frame_side2']");
   const videoBox = document.body.querySelector("[id^='wbpv_video_']");
   const videoControlBar = document.body.querySelector(".wbpv-control-bar");
@@ -47,7 +59,15 @@ window.addEventListener("load", async () => {
 
   const roomInfo = await getRoomInfo(matches[1]);
 
-  if (!roomInfo || roomInfo.status !== 1) return;
+  if (roomInfo) {
+    if (roomInfo.status !== 1) {
+      const { user } = roomInfo;
+      await launchLiveRoom(user);
+      return;
+    }
+  } else {
+    return;
+  }
 
   injectCSS(style);
 

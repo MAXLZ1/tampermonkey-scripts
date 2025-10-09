@@ -1,3 +1,4 @@
+import { MBlog } from "./mblog";
 import { Comment } from "./comment";
 
 export interface CommentsResponse {
@@ -8,7 +9,7 @@ export interface CommentsResponse {
   ok: number;
 }
 
-export interface RoomInfo {
+export interface RoomInfoResponse {
   code: number;
   msg: string;
   error_code: number;
@@ -46,4 +47,58 @@ export interface RoomInfo {
     pay_live_status: number;
     play_switch: number;
   };
+}
+
+export interface MyMBloygResponse {
+  ok: number;
+  data: {
+    since_id: string;
+    list: MBlog[];
+    status_visible: number;
+    bottom_tips_visible: boolean;
+    bottom_tips_text: string;
+    topicList: string[];
+    total: number;
+  };
+}
+
+export interface LiveInfoDetailResponse {
+  data: {
+    liveId: string;
+    status: number;
+    cover: string;
+    startTime: number;
+    endTime: number;
+    width: number;
+    height: number;
+    mid: string;
+    createType: number;
+    createSource: number;
+    title: string;
+    watch_limit: number;
+    user: {
+      uid: number;
+      screenName: string;
+      profileImageUrl: string;
+      verified: number;
+      verifiedType: number;
+      verifiedTypeExt: number;
+      userAuthType: number;
+      avatar: string;
+      gender: string;
+    };
+    following: number;
+    reposts_count: number;
+    comments_count: number;
+    attitudes_count: number;
+    friends_count: number;
+    liked: boolean;
+    live_origin_hls_url: string;
+    live_origin_flv_url: string;
+    replay_origin_url: string;
+    pay_live_status: number;
+    play_switch: number;
+    countDownTime: number;
+  };
+  ok: string;
 }

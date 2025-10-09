@@ -23,6 +23,11 @@ div[class^="PlayInfo_boxin"] {
   padding-bottom: calc(
     100vh - 10px - var(--weibo-top-nav-height) - 115px - 50px - 30px
   );
+  border-radius: 8px 8px 0 0;
+}
+
+div[class^="PlayInfo_videoinfo"] > div[class*="VideoInfo_wrap"] {
+  border-radius: 0 0 8px 8px;
 }
 
 .wbpv-poster {
