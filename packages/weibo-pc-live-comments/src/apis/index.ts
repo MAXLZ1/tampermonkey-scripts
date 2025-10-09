@@ -1,4 +1,9 @@
-import type { CommentsResponse, RoomInfo } from "../types/response";
+import type {
+  CommentsResponse,
+  LiveInfoDetailResponse,
+  MyMBloygResponse,
+  RoomInfoResponse,
+} from "../types/response";
 import { sleep } from "../utils";
 
 export async function getRoomInfo(liveId: string) {
@@ -6,7 +11,7 @@ export async function getRoomInfo(liveId: string) {
     `https://weibo.com/l/!/2/wblive/room/show_pc_live.json?live_id=${liveId}`,
   );
   if (res) {
-    const { data } = (await res.json()) as RoomInfo;
+    const { data } = (await res.json()) as RoomInfoResponse;
     return data;
   }
   return null;
@@ -26,4 +31,28 @@ export async function getComments(mid: string, uid: number, isFirst?: boolean) {
   } else {
     return [];
   }
+}
+
+export async function getMyMBlog(uid: number) {
+  const res = await fetch(
+    `https://weibo.com/ajax/statuses/mymblog?uid=${uid}&page=1&feature=0`,
+  );
+
+  if (res.ok) {
+    const { data } = (await res.json()) as MyMBloygResponse;
+    return data;
+  }
+
+  return null;
+}
+
+export async function getLiveInfoDetail(liveId: string) {
+  const res = await fetch(
+    `https://weibo.com/ajax/multimedia/getLiveInfoDetail?live_id=${liveId}`,
+  );
+  if (res.ok) {
+    const { data } = (await res.json()) as LiveInfoDetailResponse;
+    return data;
+  }
+  return null;
 }

@@ -1,0 +1,86 @@
+.weibo-message {
+  width: 100%;
+  padding: 8px;
+  text-align: center;
+}
+
+.weibo-message .weibo-message-wrapper {
+  display: inline-block;
+  padding: 10px 12px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow:
+    0 6px 16px 0 rgba(0, 0, 0, 0.08),
+    0 3px 6px -4px rgba(0, 0, 0, 0.12),
+    0 9px 28px 8px rgba(0, 0, 0, 0.05);
+  pointer-events: all;
+}
+
+.weibo-message .weibo-message-wrapper.leaving {
+  animation: 0.3s ease messageOut;
+}
+
+.weibo-message .weibo-message-wrapper .weibo-message-content {
+  display: flex;
+  align-items: center;
+}
+
+.weibo-message .weibo-message-wrapper .weibo-message-content .message-action {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.weibo-message
+  .weibo-message-wrapper
+  .weibo-message-content
+  .message-action
+  svg {
+  width: 20px;
+  height: 20px;
+}
+
+.weibo-message
+  .weibo-message-wrapper
+  .weibo-message-content
+  .message-action
+  svg.info {
+  color: var(--w-tip-fill-help);
+}
+
+.weibo-message
+  .weibo-message-wrapper
+  .weibo-message-content
+  .message-action
+  svg.success {
+  color: var(--w-tip-fill-success);
+}
+.weibo-message
+  .weibo-message-wrapper
+  .weibo-message-content
+  .message-action
+  svg.error {
+  color: var(--w-tip-fill-error);
+}
+
+@keyframes messageIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(-0);
+    opacity: 1;
+  }
+}
+
+@keyframes messageOut {
+  from {
+    transform: translateY(-0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+}
