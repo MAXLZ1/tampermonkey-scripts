@@ -1,0 +1,48 @@
+.global-setting {
+  position: fixed;
+  z-index: 99;
+  bottom: 100px;
+  right: 20px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  padding: 0;
+  color: rgba(29, 29, 29, 0.8);
+  background-color: #fff;
+  box-shadow:
+    0 6px 16px 0 rgba(0, 0, 0, 0.08),
+    0 3px 6px -4px rgba(0, 0, 0, 0.12),
+    0 9px 28px 8px rgba(0, 0, 0, 0.05);
+  font-size: 14px;
+  font-family:
+    QuoteFallback,
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Ubuntu,
+    Cantarell,
+    Noto Sans,
+    sans-serif;
+}
+
+.btn-body {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.btn-body:hover {
+  background-color: rgba(0, 0, 0, 0.09);
+}
+
+.global-setting .setting-icon {
+  width: 24px;
+  height: 24px;
+}

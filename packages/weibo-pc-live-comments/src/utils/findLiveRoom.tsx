@@ -6,6 +6,7 @@ import { sleep } from "./sleep";
 import BeginLiveMessage from "../components/BeginLiveMessage";
 import FindLiveRoomMessage from "../components/FindLiveRoomMessage";
 import LiveRoomNotFoundMessage from "../components/LiveRoomNotFoundMessage";
+import { globalSettingStore } from "../stores";
 
 async function findLiveRoom(blogs: MBlog[]) {
   const liveRooms = blogs.find((item) => item.page_info?.type === "26");
@@ -24,31 +25,42 @@ async function findLiveRoom(blogs: MBlog[]) {
 }
 
 export async function launchLiveRoom(user: RoomInfoResponse["data"]["user"]) {
-  const { uid } = user;
-  message.loading({
-    content: <FindLiveRoomMessage user={user} />,
-    id: "launch live room",
-    duration: 0,
-  });
+  const { autoRedirectLive, autoSearchLive } =
+    globalSettingStore.getGlobalSetting();
 
-  await sleep(3000);
-  const mBlog = await getMyMBlog(uid);
-
-  if (!mBlog) return;
-
-  const href = await findLiveRoom(mBlog.list);
-
-  if (href) {
-    message.info({
-      content: <BeginLiveMessage liveHref={href} user={user} countdown={15} />,
+  if (autoSearchLive) {
+    const { uid } = user;
+    message.loading({
+      content: <FindLiveRoomMessage user={user} />,
       id: "launch live room",
-      duration: 15,
+      duration: 0,
     });
-  } else {
-    message.error({
-      content: <LiveRoomNotFoundMessage user={user} />,
-      id: "launch live room",
-      duration: 5,
-    });
+
+    await sleep(3000);
+    const mBlog = await getMyMBlog(uid);
+
+    if (!mBlog) return;
+
+    const href = await findLiveRoom(mBlog.list);
+
+    if (href) {
+      if (autoRedirectLive) {
+        window.location.href = href;
+      } else {
+        message.info({
+          content: (
+            <BeginLiveMessage liveHref={href} user={user} countdown={15} />
+          ),
+          id: "launch live room",
+          duration: 15,
+        });
+      }
+    } else {
+      message.error({
+        content: <LiveRoomNotFoundMessage user={user} />,
+        id: "launch live room",
+        duration: 5,
+      });
+    }
   }
 }

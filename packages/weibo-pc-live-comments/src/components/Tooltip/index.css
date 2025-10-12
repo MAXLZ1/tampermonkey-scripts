@@ -1,0 +1,52 @@
+.w-tooltip {
+  position: absolute;
+  z-index: 9999;
+  font-size: 14px;
+}
+
+.w-tooltip .w-tooltip-arrow {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+}
+
+.w-tooltip .w-tooltip-arrow::before {
+  content: "";
+  position: absolute;
+  clip-path: path(
+    "M 0 8 A 4 4 0 0 0 2.82842712474619 6.82842712474619 L 6.585786437626905 3.0710678118654755 A 2 2 0 0 1 9.414213562373096 3.0710678118654755 L 13.17157287525381 6.82842712474619 A 4 4 0 0 0 16 8 Z"
+  );
+  width: 16px;
+  height: 8px;
+  background-color: rgba(0, 0, 0, 0.85);
+  transform: rotateZ(180deg);
+}
+
+.w-tooltip .w-tooltip-arrow::after {
+  transform: translateY(50%) rotate(-135deg);
+  content: "";
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+  z-index: 0;
+  height: 8.970562748477143px;
+  width: 8.970562748477143px;
+  position: absolute;
+  bottom: 100%;
+  border-radius: 0 0 2px 0;
+  background: transparent;
+  margin: auto;
+  inset-inline: 0;
+}
+
+.w-tooltip-content {
+  background-color: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow:
+    0 6px 16px 0 rgba(0, 0, 0, 0.08),
+    0 3px 6px -4px rgba(0, 0, 0, 0.12),
+    0 9px 28px 8px rgba(0, 0, 0, 0.05);
+}
