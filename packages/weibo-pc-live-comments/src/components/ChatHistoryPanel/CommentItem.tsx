@@ -7,10 +7,7 @@ type CommentProps = {
 
 export default function CommentItem({ comment }: CommentProps) {
   const {
-    user: {
-      fansIcon: { icon_url },
-      avatar_large,
-    },
+    user: { fansIcon, avatar_large },
   } = comment;
 
   return (
@@ -24,7 +21,10 @@ export default function CommentItem({ comment }: CommentProps) {
       >
         {comment.user.screen_name}
       </a>
-      {icon_url && <img src={icon_url} className="fans-icon" alt="" />}:
+      {fansIcon?.icon_url && (
+        <img src={fansIcon.icon_url} className="fans-icon" alt="" />
+      )}
+      :
       <span
         dangerouslySetInnerHTML={{ __html: comment.text }}
         className="comment-text"
