@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/MAXLZ1/tampermonkey-scripts/compare/weibo-pc-live-comments-v1.3.0...weibo-pc-live-comments-v1.3.1) (2025-10-12)
+
+
+### Bug Fixes
+
+* the property 'fansIcon' in 'comment.user' is possibly undefined ([3c0eebc](https://github.com/MAXLZ1/tampermonkey-scripts/commit/3c0eebc5dbff58ac12b2a378af19e3088de471bd))
+
 ## [1.3.0](https://github.com/MAXLZ1/tampermonkey-scripts/compare/weibo-pc-live-comments-v1.2.0...weibo-pc-live-comments-v1.3.0) (2025-10-12)
 
 
