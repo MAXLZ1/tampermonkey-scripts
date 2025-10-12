@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.0](https://github.com/MAXLZ1/tampermonkey-scripts/compare/weibo-pc-live-comments-v1.2.0...weibo-pc-live-comments-v1.3.0) (2025-10-12)
+
+
+### Features
+
+* add global setting ([168f8ca](https://github.com/MAXLZ1/tampermonkey-scripts/commit/168f8ca134c43cb76439095d35990a458583ea0a))
+* automatically detect when a streamer starts a new live stream ([6d2dc4f](https://github.com/MAXLZ1/tampermonkey-scripts/commit/6d2dc4fde4df5a4a7dd1f569c3562bacbbb4b41b))
+
+
+### Bug Fixes
+
+* resume sending commet form ([04fc995](https://github.com/MAXLZ1/tampermonkey-scripts/commit/04fc995ea73575b0a7a37a7abb5e16e20f04585f))
+
 ## [1.2.0](https://github.com/MAXLZ1/tampermonkey-scripts/compare/weibo-pc-live-comments-v1.1.0...weibo-pc-live-comments-v1.2.0) (2025-10-07)
 
 
