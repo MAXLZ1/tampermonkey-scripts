@@ -11,7 +11,7 @@ export interface Comment {
     avatar_hd: string;
     avatar_large: string;
     cover_image_phone: string;
-    fansIcon: {
+    fansIcon?: {
       fans_uid: number;
       val: number;
       member_rank: number;
