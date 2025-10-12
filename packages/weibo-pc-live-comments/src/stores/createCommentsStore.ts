@@ -1,4 +1,5 @@
 import type { Comment } from "../types/comment";
+import { globalSettingStore } from "./globalSettingStore";
 
 type Subscriber = (added: Comment[]) => void;
 
@@ -9,11 +10,13 @@ export function createCommentsStore() {
   const getComments = () => comments;
 
   const setComments = (newComments: Comment[]) => {
+    const { maxCommentsNum } = globalSettingStore.getGlobalSetting();
+
     const prevIds = new Set(comments.map((c) => c.id));
     // 去重
     const merged = Array.from(
       new Map([...comments, ...newComments].map((c) => [c.id, c])).values(),
-    ).slice(-Number(import.meta.env.VITE_MAX_COMMENTS_NUMBER));
+    ).slice(-maxCommentsNum);
 
     // 计算新增
     const added = merged.filter((c) => !prevIds.has(c.id));

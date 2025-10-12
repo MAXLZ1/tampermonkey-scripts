@@ -1,0 +1,33 @@
+.form-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.form-item .form-item-label {
+  text-align: end;
+  white-space: nowrap;
+}
+
+.form-item .form-item-label label::after {
+  content: ":";
+  margin-inline-start: 2px;
+  margin-inline-end: 6px;
+}
+
+.form-item .form-item-label .form-item-label-icon {
+  cursor: help;
+  margin-left: 4px;
+  color: #aaaaaa;
+  vertical-align: top;
+}
+
+.form-item .form-item-label .form-item-label-icon > svg {
+  height: 18px;
+  width: 18px;
+}
+
+.form-item .form-item-control-content {
+  display: flex;
+  align-items: center;
+}

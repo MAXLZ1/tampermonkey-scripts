@@ -1,0 +1,28 @@
+.setting-form-box {
+  width: 300px;
+  min-height: 240px;
+  padding: 20px 20px 45px 20px;
+  border-radius: 8px;
+  background-color: #fff;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border-bottom-right-radius: 20px;
+  text-align: center;
+  box-shadow:
+    0 6px 16px 0 rgba(0, 0, 0, 0.08),
+    0 3px 6px -4px rgba(0, 0, 0, 0.12),
+    0 9px 28px 8px rgba(0, 0, 0, 0.05);
+  z-index: -1;
+}
+
+.setting-form-box .setting-form-title {
+  margin: 0;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.setting-form-box .setting-form {
+  margin-top: 20px;
+  width: 100%;
+}

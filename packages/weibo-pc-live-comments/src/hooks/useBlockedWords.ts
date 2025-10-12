@@ -5,14 +5,10 @@ import {
   clearBlockedWords,
 } from "../stores/blockedWordsStore";
 
-export function useBlockedWords(): [
-  string[],
-  {
-    addBlockedWord: (word: string) => void;
-    removeBlockedWord: (word: string) => void;
-    clearBlockedWords: () => void;
-  },
-] {
+export function useBlockedWords() {
   const value = blockedWordsStore.useStore();
-  return [value, { addBlockedWord, removeBlockedWord, clearBlockedWords }];
+  return [
+    value,
+    { addBlockedWord, removeBlockedWord, clearBlockedWords },
+  ] as const;
 }

@@ -3,14 +3,20 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import ChatHistoryPanel from "./components/ChatHistoryPanel";
 import { getComments, getRoomInfo } from "./apis";
-import { extractDisplayComments, launchLiveRoom, injectCSS } from "./utils";
-import { addComments } from "./stores";
+import {
+  extractDisplayComments,
+  launchLiveRoom,
+  injectCSS,
+  log,
+} from "./utils";
+import { addComments, globalSettingStore } from "./stores";
 import VideoComments from "./components/VideoComments";
 import CommentSwitch from "./components/CommentsSwitch";
 import { useCommentSwitch } from "./hooks";
 import style from "./style/prettify.css?inline";
 import VideoBackground from "./components/VideoBackground";
 import { MessageHolder } from "./components/WMessage/message";
+import GlobalSetting from "./components/GlobalSetting";
 
 function FrameSideApp() {
   return (
@@ -71,6 +77,19 @@ window.addEventListener("load", async () => {
 
   injectCSS(style);
 
+  // add global setting
+  ReactDOM.createRoot(
+    (() => {
+      const div = document.createElement("div");
+      document.body.appendChild(div);
+      return div;
+    })(),
+  ).render(
+    <React.StrictMode>
+      <GlobalSetting />
+    </React.StrictMode>,
+  );
+
   const {
     mid,
     user: { uid },
@@ -119,25 +138,45 @@ window.addEventListener("load", async () => {
   };
 
   function request() {
-    setTimeout(() => {
-      updateComments(true);
-    }, 0);
-    return setInterval(
-      updateComments,
-      Number(import.meta.env.VITE_REQUEST_GAP),
+    let intervalId: number | undefined;
+    let currentGap = globalSettingStore.getGlobalSetting().requestGap;
+
+    const startRequest = (gap: number) => {
+      if (intervalId !== undefined) clearInterval(intervalId);
+      intervalId = setInterval(updateComments, gap * 1000);
+      currentGap = gap;
+      log(`request start with gap=${gap}s`);
+    };
+
+    updateComments(true);
+
+    startRequest(currentGap);
+
+    const unsubscribe = globalSettingStore.subscribe(
+      ({ requestGap: newRequestGap }) => {
+        if (newRequestGap !== currentGap) {
+          startRequest(newRequestGap);
+        }
+      },
     );
+
+    return () => {
+      if (intervalId !== undefined) clearInterval(intervalId);
+      unsubscribe?.();
+      log("request stopped");
+    };
   }
 
-  let intervalId = request();
-
+  let stop = request();
   const video = videoBox?.querySelector("video");
 
   if (video) {
     video.addEventListener("play", () => {
-      intervalId = request();
+      stop();
+      stop = request();
     });
     video.addEventListener("pause", () => {
-      clearInterval(intervalId);
+      stop();
     });
   }
 });

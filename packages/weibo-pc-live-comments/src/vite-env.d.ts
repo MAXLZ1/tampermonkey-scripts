@@ -16,6 +16,8 @@ interface ImportMetaEnv {
   readonly VITE_COMMENT_DURATION: string;
   readonly VITE_COMMENTS_SAFE_GAP: string;
   readonly VITE_LOCALSTORAGE_KEY_PREFIX: string;
+  readonly VITE_AUTO_SEARCH_LIVE: string;
+  readonly VITE_REDIRECT_LIVE: string;
 }
 
 interface ImportMeta {

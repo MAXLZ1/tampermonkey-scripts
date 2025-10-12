@@ -1,5 +1,9 @@
 import "./index.css";
-import { useComments, useIncrementalComments } from "../../hooks";
+import {
+  useComments,
+  useGlobalSetting,
+  useIncrementalComments,
+} from "../../hooks";
 import { useEffect, useRef, useState, useCallback } from "react";
 import WButton from "../WButton";
 import ArrowDownSvg from "../../assets/arrow_downward.svg?react";
@@ -20,6 +24,7 @@ function moveSendingForm(container: HTMLElement) {
 export default function ChatHistoryPanel() {
   const comments = useComments();
   const incrementalComments = useIncrementalComments();
+  const [globalSetting] = useGlobalSetting();
   const [newCount, setNewCount] = useState(0);
   const listRef = useRef<HTMLDivElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
@@ -48,15 +53,12 @@ export default function ChatHistoryPanel() {
       const delta = incrementalComments.length - lastSeenCount.current;
       if (delta >= 0) {
         setNewCount((prev) =>
-          Math.min(
-            prev + delta,
-            Number(import.meta.env.VITE_MAX_COMMENTS_NUMBER),
-          ),
+          Math.min(prev + delta, globalSetting.maxCommentsNum),
         );
         lastSeenCount.current = 0; // 更新已计算数
       }
     }
-  }, [incrementalComments, atBottom]);
+  }, [incrementalComments, atBottom, globalSetting.maxCommentsNum]);
 
   useEffect(() => {
     const el = listRef.current;

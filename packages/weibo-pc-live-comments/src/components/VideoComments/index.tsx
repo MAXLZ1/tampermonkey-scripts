@@ -1,4 +1,4 @@
-import { useIncrementalComments } from "../../hooks";
+import { useGlobalSetting, useIncrementalComments } from "../../hooks";
 import { useEffect, useRef, useState } from "react";
 import "./index.css";
 import type { Comment } from "../../types/comment";
@@ -30,8 +30,6 @@ const maxTracks = Number(import.meta.env.VITE_MAX_TRACKS);
 const trackHeight = Number(import.meta.env.VITE_TRACK_HEIGHT);
 // 弹幕间安全间隔 单位px
 const safeGap = Number(import.meta.env.VITE_COMMENTS_SAFE_GAP);
-// 弹幕duration，单位ms
-const fixDuration = Number(import.meta.env.VITE_COMMENT_DURATION);
 
 function measureCommentWidth(text: string, container: HTMLElement) {
   const tempSpan = document.createElement("span");
@@ -48,6 +46,8 @@ function measureCommentWidth(text: string, container: HTMLElement) {
 
 export default function VideoComments() {
   const newComments = useIncrementalComments();
+  const [globalSetting] = useGlobalSetting();
+  const { commentSpeed } = globalSetting;
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeComments, setActiveComments] = useState<ActiveComment[]>([]);
   const lastDisappearTimes = useRef<LastCommentInfo[]>(
@@ -65,7 +65,7 @@ export default function VideoComments() {
 
   function assignTrack(commentWidth: number): TrackInfo {
     const now = Date.now();
-    const duration = fixDuration;
+    const duration = commentSpeed * 1000;
     const containerWidth = containerWidthRef.current;
     const speed = (containerWidth + commentWidth) / duration;
     const completeAppear = commentWidth / speed;
